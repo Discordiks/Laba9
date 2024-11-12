@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "63554868989",
+    "project_id": "laba9-c8da4",
+    "storage_bucket": "laba9-c8da4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63554868989:android:bd7367579b39cefbc59094",
+        "android_client_info": {
+          "package_name": "com.example.laba9"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmEhbDgPkbG6Wer4WyKRrDmqZNIFzAlgE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
