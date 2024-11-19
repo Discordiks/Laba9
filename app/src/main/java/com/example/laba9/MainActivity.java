@@ -11,6 +11,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -22,6 +23,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 public class MainActivity extends AppCompatActivity {
@@ -62,13 +64,9 @@ public class MainActivity extends AppCompatActivity {
                 //действия при успешном входе
                 task.getResult(ApiException.class);
                 Toast.makeText(MainActivity.this, "Вход успешен", Toast.LENGTH_SHORT).show();
-                //получаем аккаунт и приветствуем пользователя
-                GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
-                if (account !=null){
-                    String name = account.getDisplayName();
-                    String email = account.getEmail();
-                    Toast.makeText(MainActivity.this, "Добро пожаловать, " + name + "(" + email + ")", Toast.LENGTH_SHORT).show();
-                }
+                //открытие нового окна
+                Intent intent = new Intent(getApplicationContext(), NewActivity.class);
+                startActivity(intent);
             }
             catch (ApiException e) {
                 Toast.makeText(MainActivity.this,"Ошибка входа", Toast.LENGTH_SHORT).show();
