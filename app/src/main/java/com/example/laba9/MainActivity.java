@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             catch (ApiException e) {
-                Toast.makeText(MainActivity.this, "Ошибка входа", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"Ошибка входа", Toast.LENGTH_SHORT).show();
             }
         }
     });
