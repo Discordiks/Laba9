@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button login_btn = (Button) findViewById(R.id.login_btn);
-        gso=new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gso= new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc= GoogleSignIn.getClient(this,gso);
 
         login_btn.setOnClickListener(new View.OnClickListener() {
@@ -52,21 +53,27 @@ public class MainActivity extends AppCompatActivity {
                 GoogleSignInLauncher.launch(intent);
             }
         });
-
     }
 
     ActivityResultLauncher<Intent> GoogleSignInLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
-            //действия по заврешению интента
+            //действия по завершению интента
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
             try {
                 //действия при успешном входе
                 task.getResult(ApiException.class);
                 Toast.makeText(MainActivity.this, "Вход успешен", Toast.LENGTH_SHORT).show();
-                //открытие нового окна
-                Intent intent = new Intent(getApplicationContext(), NewActivity.class);
-                startActivity(intent);
+                GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+                if (account !=null){
+                    String name = account.getDisplayName();
+                    String email = account.getEmail();
+                    //открытие нового окна
+                    Intent intent = new Intent(getApplicationContext(), NewActivity.class);
+                    intent.putExtra("NAME", name);
+                    intent.putExtra("EMAIL", email);
+                    startActivity(intent);
+                }
             }
             catch (ApiException e) {
                 Toast.makeText(MainActivity.this,"Ошибка входа", Toast.LENGTH_SHORT).show();

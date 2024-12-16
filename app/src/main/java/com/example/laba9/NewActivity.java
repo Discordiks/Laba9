@@ -17,13 +17,17 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 public class NewActivity extends AppCompatActivity {
+
+    GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     private Button exit_btn;
-    private TextView textView;
+    private TextView name_pochta;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,13 +39,14 @@ public class NewActivity extends AppCompatActivity {
             return insets;
         });
 
-        //получаем аккаунт и приветствуем пользователя
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
-        if (account !=null){
-            String name = account.getDisplayName();
-            String email = account.getEmail();
-            textView.setText("Добро пожаловать, " + name + " " + email);
-        }
+        gso= new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc= GoogleSignIn.getClient(this,gso);
+
+        String name = getIntent().getStringExtra("NAME");
+        String email = getIntent().getStringExtra("EMAIL");
+
+        name_pochta = findViewById(R.id.name_pochta);
+        name_pochta.setText("Добро пожаловать, " + name + " " + email);
 
         exit_btn = findViewById(R.id.exit_btn);
         exit_btn.setOnClickListener(new View.OnClickListener() {
